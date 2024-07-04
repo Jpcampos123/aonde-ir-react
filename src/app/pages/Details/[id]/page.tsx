@@ -6,7 +6,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BsTicketPerforated } from "react-icons/bs";
 import getDetailsEvent from "@/app/services/eventsDetails";
 import Loading from "@/app/components/Loading";
-import { EventItem } from "../../dashboard/page";
+import { EventItem } from "../../../page";
 import Modal, { Guest } from "@/app/components/Guests";
 import Link from "next/link";
 
@@ -72,7 +72,7 @@ const EventDetails = () => {
             className="w-full h-64 object-cover object-center"
           />
         </div>
-        <div className="flex justify-between  mr-2 mt-2">
+        <div className="flex justify-between items-center  mr-2 mt-2">
           <h4 className="text-xl font-bold text-gray-800">{event.name}</h4>
           <div>
             <span className="text-base font-semibold   text-gray-800">

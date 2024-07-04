@@ -17,7 +17,7 @@ export  function canSSRGuest<P>(fn: GetServerSideProps) {
             return {
 
                 redirect: {
-                    destination: '/dashboard',
+                    destination: '/',
                     permanent: false
                 }
             }

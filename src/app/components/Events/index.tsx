@@ -3,8 +3,10 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-import { EventCardProps } from "@/app/pages/dashboard/page";
+import { EventCardProps } from "@/app/page";
 import { format } from "date-fns";
+import fireRed from '../../../../public/assets/fireRed.svg'
+import Image from "next/image";
 
 const EventCard: React.FC<EventCardProps> = ({ event, handleDetails }) => {
   const router = useRouter();
@@ -44,11 +46,17 @@ const EventCard: React.FC<EventCardProps> = ({ event, handleDetails }) => {
       </div>
       <div className="p-2 mt-auto flex justify-between items-end">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-xs"
+          className="bg-red-500 hover:bg-700 text-white font-bold py-1 px-2 rounded text-xs"
           onClick={handleNavigateToDetails}
         >
           Detalhes
         </button>
+        {/* <Image
+          src={fireRed}
+          alt="Voltar"
+          className="absolute top-24 left-4 cursor-pointer"
+          
+        /> */}
       </div>
     </div>
   );

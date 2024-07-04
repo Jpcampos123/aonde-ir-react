@@ -28,7 +28,7 @@ const FormPage = () => {
 
     try {
       await signIn({ email, password });
-      router.push("/pages/dashboard");
+      router.push("/");
     } catch (error) {
       console.error("Erro ao fazer login:", error);
     }
