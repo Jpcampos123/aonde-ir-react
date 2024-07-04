@@ -23,7 +23,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, guests }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg overflow-hidden shadow-lg max-w-md w-full">
+      <div className="bg-white rounded-lg overflow-hidden shadow-lg max-w-sm w-11/12">
         <div className="p-4 border-b flex justify-between">
           <h2 className="text-xl font-semibold">Confirmados</h2>
           <button onClick={onClose} className="top-2 right-2 text-gray-600">

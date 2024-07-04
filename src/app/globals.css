@@ -3,6 +3,29 @@
 @tailwind utilities;
 
 
+input[type=radio]#Yellow {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px; /* Tamanho da bolinha */
+  height: 20px; /* Tamanho da bolinha */
+  border-radius: 50%; /* Formato da bolinha */
+  border: 2px solid black ; /* Borda da bolinha */
+  background-color: white;
+  border-color: #c62828 ;
+  outline: none;
+  cursor: pointer;
+}
+
+
+
+/* Estilo personalizado para a bolinha selecionada */
+input[type="radio"]#Yellow:checked {
+  border: 2px solid black ;
+  background-color:  #c62828; /* Cor da bolinha selecionada */
+  border-color: #c62828 ; /* Cor da borda da bolinha selecionada */
+
+}
 
 @layer utilities {
   .text-balance {

@@ -5,7 +5,7 @@ import React, { createContext, ReactNode, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axiosInstance from "../services/api";
 
-type UserProps = {
+export type UserProps = {
   id: string;
   name: string;
   email: string;
@@ -32,7 +32,7 @@ type SignUpProps = {
 type AuthProviderProps = {
   children: ReactNode;
 };
-type AuthContextData = {
+export type AuthContextData = {
   user: UserProps | undefined;
   isAuthenticated: boolean;
   signIn: (credentials: SignInProps) => Promise<void>;
