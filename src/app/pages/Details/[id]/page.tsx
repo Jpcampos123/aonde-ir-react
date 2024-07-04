@@ -3,10 +3,12 @@ import { useRouter, useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { BsTicketPerforated } from "react-icons/bs";
 import getDetailsEvent from "@/app/services/eventsDetails";
 import Loading from "@/app/components/Loading";
 import { EventItem } from "../../dashboard/page";
 import Modal, { Guest } from "@/app/components/Guests";
+import Link from "next/link";
 
 // interface EventDetailsProps {
 //   id: string;
@@ -62,38 +64,58 @@ const EventDetails = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="max-w-lg mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
-        <img
-          src={event.photo}
-          alt={event.description}
-          className="w-full h-64 object-cover object-center"
-        />
-      </div>
-      <div className="mt-4">
-        <h4 className="text-xl font-semibold text-gray-800">{event.name}</h4>
-        <span className="block text-gray-600">{event.description}.</span>
-      </div>
-      <div className="flex justify-between mt-4">
-        <div>
-          <h4 className="text-xl font-semibold text-gray-800">
-            Confirmados
-            <span className="text-red-500 ml-2">{count}</span>
-          </h4>
-          <span className="text-gray-600 block">{formattedDate}</span>
+      <div className="">
+        <div className="max-w-lg mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
+          <img
+            src={event.photo}
+            alt={event.description}
+            className="w-full h-64 object-cover object-center"
+          />
+        </div>
+        <div className="flex justify-between  mr-2 mt-2">
+          <h4 className="text-xl font-bold text-gray-800">{event.name}</h4>
+          <div>
+            <span className="text-base font-semibold   text-gray-800">
+              Confirmados
+            </span>
+            <span className="text-red-500 ml-2 font-bold">{count}</span>
+          </div>
         </div>
       </div>
       <div className="mt-4">
-        {/* <p className="text-gray-600">{event.description}</p> */}
-        <h4 className="mt-4 text-xl font-semibold text-gray-800">Ingressos</h4>
+        <h4 className="text-xl font-semibold text-gray-800">Descrição</h4>
+        <span className="block text-gray-600">{event.description}.</span>
       </div>
+
+      <div className="mt-4">
+        <h4 className="text-xl font-semibold text-gray-800">Data</h4>
+        <span className="text-gray-600 block">{formattedDate}</span>
+      </div>
+
       <div className="mt-4 flex justify-between">
         <div>
           <h4 className="text-xl font-semibold text-gray-800">Local</h4>
           <span className="text-gray-600">{event.location}</span>
         </div>
+      </div>
+      <div className="mt-4 justify-between w-full flex items-center">
+        <h4 className="text-xl font-semibold text-gray-800">Ingressos</h4>
+        <a
+          href="http://www.casadefestas.net/eventos/evento.asp?id=2854"
+          target="_blank"
+        >
+          {/* <span className="text-red-500 font-bold fon">Aqui</span> */}
+
+          <BsTicketPerforated className="text-red-500" size={30} />
+        </a>
+      </div>
+      <div className="mt-4 justify-between w-full flex items-center">
+        <h4 className="text-xl font-semibold text-gray-800">
+          Confirmar presença
+        </h4>
         <div className="text-center">
           <div className="text-red-500">
-            <AiOutlineHeart size={36} />
+            <AiOutlineHeart size={32} />
           </div>
         </div>
       </div>
