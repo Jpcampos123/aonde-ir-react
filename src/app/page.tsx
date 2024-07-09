@@ -42,14 +42,11 @@ const Home = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
   const user = useContext(AuthContext);
-  const img = user.user?.photo 
+  const img = user.user?.photo;
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-
-   
-    
     async function loadEvents() {
       try {
         const response = await getEvents();
@@ -66,7 +63,7 @@ const Home = () => {
 
   const handleDetails = async (id: string) => {
     setLoading(true);
-    console.log(loading);
+
     await router.push(`/pages/Details/${id}`);
     setLoading(false);
   };
@@ -84,19 +81,25 @@ const Home = () => {
   return (
     <div>
       <div className="avatar mr-4">
+        {!hasError ? (
+          <Image
+            src={img as string}
+            alt="Avatar"
+            width={50}
+            height={50}
+            className="w-12 h-12 rounded-full object-cover"
+            onError={() => setHasError(true)}
+          />
+        ) : (
+          <Image
+            src="https://cdn.quasar.dev/img/avatar.png"
+            alt="Avatar"
+            width={50}
+            height={50}
+            className="w-12 h-12 rounded-full object-cover"
+          />
+        )}
 
-      {
-        !hasError ? (
-<Image src={img as string} alt="Avatar" width={50} height={50} className="w-12 h-12 rounded-full object-cover" onError={() => setHasError(true)} />
-        ) : <Image
-        src="https://cdn.quasar.dev/img/avatar.png"
-        alt="Avatar"
-        width={50}
-        height={50}
-        className="w-12 h-12 rounded-full object-cover"
-      />
-      }
-      
         {/* {img ? (
           <Image src={img as string} alt="Avatar" width={50} height={50} />
         ) : (

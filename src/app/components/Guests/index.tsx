@@ -1,5 +1,6 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 export interface Guest {
   event_id: string;
@@ -32,28 +33,34 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, guests }) => {
         </div>
         <div className="p-4 max-h-96 overflow-y-auto">
           <ul>
-            {guests.map((guest, index) => (
-              <li
-                key={index}
-                className="flex items-center  space-x-4 mb-4  border-b"
-              >
-                {guest.user.photo ? (
-                  <img
-                    src={guest.user.photo}
-                    alt={guest.user.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-                ) : (
-                  <Image
-                    src="https://cdn.quasar.dev/img/avatar.png"
-                    alt="Avatar"
-                    width={50}
-                    height={50}
-                  />
-                )}
-                <span className="text-gray-800">{guest.user.name}</span>
-              </li>
-            ))}
+            {guests.length ? (
+              guests.map((guest, index) => (
+                <li
+                  key={index}
+                  className="flex items-center  space-x-4 mb-4  border-b"
+                >
+                  {guest.user.photo ? (
+                    <Image
+                      src={guest.user.photo}
+                      alt={guest.user.name}
+                      className="w-12 h-12 rounded-full object-cover"
+                      width={50}
+                      height={50}
+                    />
+                  ) : (
+                    <Image
+                      src="https://cdn.quasar.dev/img/avatar.png"
+                      alt="Avatar"
+                      width={50}
+                      height={50}
+                    />
+                  )}
+                  <span className="text-gray-800">{guest.user.name}</span>
+                </li>
+              ))
+            ) : (
+              <span>Nenhuma pessoa confirmada....</span>
+            )}
           </ul>
         </div>
       </div>

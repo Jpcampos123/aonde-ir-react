@@ -12,11 +12,12 @@ export type UserProps = {
   token: string;
   phone: string;
   photo: string;
+  role: number;
 };
 
 type ResponseUserProps = {
-  data: UserProps
-}
+  data: UserProps;
+};
 
 type SignInProps = {
   email: string;
@@ -59,13 +60,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     const { "@nextauth.token": token } = parseCookies();
 
-    
     if (token) {
       axiosInstance
         .post("auth/me")
         .then((response) => {
-          
-          const { id, name, email, phone, photo } = response.data.payLoad;
+          const { id, name, email, phone, photo, role } = response.data.payLoad;
 
           setUser({
             id,
@@ -73,7 +72,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
             email,
             token,
             phone,
-            photo
+            photo,
+            role,
           });
         })
         .catch(() => {
@@ -85,28 +85,29 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // para logar com usuarios testes use '/teste' para usuarios efetivos use '/session'
   async function signIn({ email, password }: SignInProps) {
     try {
-      const response: ResponseUserProps = await axiosInstance.post("/auth/teste", {
-        email,
-        password,
-      });
+      const response: ResponseUserProps = await axiosInstance.post(
+        "/auth/teste",
+        {
+          email,
+          password,
+        }
+      );
 
-      const {id, name, token, phone, photo} = response.data;
+      const { id, name, token, phone, photo, role } = response.data;
       setCookie(undefined, "@nextauth.token", token, {
         maxAge: 60 * 60 * 24 * 30, // Expira em 1 mês
         path: "/",
       });
 
-
-
-       setUser({
-
-                id,
-                name,
-                email,
-                phone,
-                photo,
-                token
-            })
+      setUser({
+        id,
+        name,
+        email,
+        phone,
+        photo,
+        token,
+        role,
+      });
       axiosInstance.defaults.headers[
         "Authorization"
       ] = `Bearer ${response.data.token}`;
