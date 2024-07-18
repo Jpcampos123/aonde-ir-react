@@ -11,7 +11,7 @@ const Navigation = () => {
   if (!user) return;
 
   return (
-    <nav className="fixed bottom-0 w-full bg-white border-t border-gray-200">
+    <nav className="fixed bottom-0 w-full bg-white border-t border-gray-200 mt-5">
       <ul className="flex justify-around  py-1 text-red-500">
         <li className="flex flex-col items-center ">
           <Link href="/" className="flex flex-col items-center ">

@@ -177,7 +177,7 @@ const Profile = () => {
                 </div>
               </div>
 
-              <div>
+              <div className="">
                 <button
                   type="button"
                   className="w-full py-2 px-4 bg-red-500  text-white rounded-md mt-6"

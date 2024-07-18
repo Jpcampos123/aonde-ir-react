@@ -119,7 +119,7 @@ const EventDetails = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center mt-6">
+      <div className="flex justify-center mt-6 my-16">
         <button
           onClick={() => setIsModalOpen(true)}
           className="text-gray-600 mb-2 bg-red-500 text-white mt-20 rounded w-full h-12"
