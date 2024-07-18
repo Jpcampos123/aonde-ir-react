@@ -4,17 +4,27 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { IoCloudUpload } from "react-icons/io5";
 import Image from "next/image";
+import CreateNewEvent from "@/app/services/createEvent";
+
+export interface Data {
+  name: string;
+  description: string;
+  date: string;
+  photo: string;
+  location: string;
+}
 
 const CreateEvent: React.FC = () => {
   const [event, setEvent] = useState({
     name: "",
     date: "",
-    time: "",
+    // time: "",
     description: "",
     location: "",
-    achievements: "",
-    tickets: "",
-    image: "",
+    // achievements: "",
+    // tickets: "",
+    photo:
+      "https://drki4mwx2hl8h.cloudfront.net/3/imagens/196473434866799148191c55.42984551.1719243080_m.png",
   });
   const [imagePreview, setImagePreview] = useState("");
 
@@ -35,7 +45,8 @@ const CreateEvent: React.FC = () => {
     e.preventDefault();
     try {
       // Substitua 'API_ENDPOINT' pelo seu endpoint real
-      await axios.post("API_ENDPOINT", event);
+      const response = await CreateNewEvent(event);
+      console.log(response);
       toast.success("Evento criado com sucesso!");
     } catch (error) {
       toast.error("Erro ao criar evento.");
@@ -51,14 +62,14 @@ const CreateEvent: React.FC = () => {
             <label className="block text-sm font-bold mb-2" htmlFor="image">
               Seu evento aqui
             </label>
-            <div className="border border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center h-48 shadow-md">
+            <div className="border border-dashed relative border-gray-300 rounded-lg  flex flex-col items-center justify-center h-48 shadow-md">
               {imagePreview ? (
                 <Image
                   src={imagePreview}
                   alt="Preview"
-                  width={150}
-                  height={100}
-                  className=" object-contain  rounded"
+                  className="object-cover rounded-lg"
+                  loading="lazy"
+                  fill
                 />
               ) : (
                 <div className="items-center">
@@ -111,7 +122,7 @@ const CreateEvent: React.FC = () => {
                 required
               />
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="block text-sm font-bold mb-2" htmlFor="time">
                 Horário*
               </label>
@@ -124,7 +135,7 @@ const CreateEvent: React.FC = () => {
                 onChange={handleChange}
                 required
               />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="mb-4">
@@ -153,7 +164,7 @@ const CreateEvent: React.FC = () => {
             required
           />
         </div>
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label
             className="block text-sm font-bold mb-2"
             htmlFor="achievements"
@@ -167,8 +178,8 @@ const CreateEvent: React.FC = () => {
             value={event.achievements}
             onChange={handleChange}
           />
-        </div>
-        <div className="mb-4">
+        </div> */}
+        {/* <div className="mb-4">
           <label className="block text-sm font-bold mb-2" htmlFor="tickets">
             Ingressos
           </label>
@@ -179,7 +190,7 @@ const CreateEvent: React.FC = () => {
             value={event.tickets}
             onChange={handleChange}
           />
-        </div>
+        </div> */}
         <div className="flex items-center justify-between">
           <button
             type="submit"

@@ -1,12 +1,14 @@
 "use client";
 import Loading from "@/app/components/Loading";
-import { AuthContext } from "@/app/contexts/AuthContext";
+import { AuthContext, signOut } from "@/app/contexts/AuthContext";
 // components/Profile.js
 
 import Image from "next/image";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { FaRegEdit } from "react-icons/fa";
+import { CiLogout } from "react-icons/ci";
+import { useRouter } from "next/navigation";
 
 const Profile = () => {
   const [name, setName] = useState("Rafaella Almeida");
@@ -20,12 +22,40 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [url, setUrl] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const router = useRouter();
 
   const EditPhoto = (item: any) => {
     const file = item.target.files[0];
 
     setUrl(URL.createObjectURL(file));
   };
+
+  const handleGetOut = () => {
+    setLoading(false);
+    try {
+      signOut();
+      router.push("/");
+      setLoading(false);
+      router.refresh();
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    function loadProfile() {
+      try {
+        setLoading(false);
+        return;
+      } catch (e) {
+        setLoading(false);
+        console.log(e);
+      }
+    }
+
+    loadProfile();
+  }, [user]);
 
   if (!user?.photo) return <Loading />;
 
@@ -51,31 +81,24 @@ const Profile = () => {
                 className="object-cover"
               />
             )}
-            <div className="ml-4">
-              <h2 className="text-xl font-bold">{user?.name}</h2>
-              <p className="text-sm text-gray-500">
-                {" "}
-                {user?.role === 1 ? "Convidado" : "Administrador"}
-              </p>
+            <div className="ml-4 flex justify-between w-full">
+              <div className="">
+                <h2 className="text-xl font-bold">{user?.name}</h2>
+                <p className="text-sm text-gray-500">
+                  {" "}
+                  {user?.role === 1 ? "Convidado" : "Administrador"}
+                </p>
+              </div>
+              <div>
+                <CiLogout
+                  className="text-red-500 cursor-pointer"
+                  size={24}
+                  onClick={handleGetOut}
+                />
+              </div>
             </div>
           </div>
           <div className="mt-4">
-            <div className="border-b border-gray-200">
-              <nav className="flex space-x-4">
-                <a
-                  href="#"
-                  className="text-red-500 pb-2 border-b-2 border-red-500"
-                >
-                  Infos
-                </a>
-                <a href="#" className="text-gray-500 pb-2">
-                  Interesse
-                </a>
-                <a href="#" className="text-gray-500 pb-2">
-                  Lorem ipsum
-                </a>
-              </nav>
-            </div>
             <form className="mt-6 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">

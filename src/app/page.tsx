@@ -41,14 +41,15 @@ const Home = () => {
   const [events, setEvents] = useState<EventItem[] | []>([]);
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
-  const user = useContext(AuthContext);
-  const img = user.user?.photo;
+  const { user } = useContext(AuthContext);
+  const [img, setImg] = useState<string>("");
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     async function loadEvents() {
       try {
+        setImg(user?.photo as string);
         const response = await getEvents();
         setLoading(false);
         return setEvents(response);
@@ -59,7 +60,7 @@ const Home = () => {
     }
 
     loadEvents();
-  }, []);
+  }, [user]);
 
   const handleDetails = async (id: string) => {
     setLoading(true);
@@ -74,49 +75,52 @@ const Home = () => {
   //   setLoading(false);
   // };
 
-  if (loading) {
+  if (loading && img) {
     return <Loading />;
   }
 
   return (
     <div>
-      <div className="avatar mr-4">
-        {!hasError ? (
-          <Image
-            src={img as string}
-            alt="Avatar"
-            width={50}
-            height={50}
-            className="w-12 h-12 rounded-full object-cover"
-            onError={() => setHasError(true)}
-          />
-        ) : (
-          <Image
-            src="https://cdn.quasar.dev/img/avatar.png"
-            alt="Avatar"
-            width={50}
-            height={50}
-            className="w-12 h-12 rounded-full object-cover"
-          />
-        )}
+      <div
+        style={{
+          backgroundImage: `url("../../assets/Rectangle.png"), linear-gradient(
+      180deg,
+      #d5281e 44.98%,
+      rgba(213, 40, 30, 0) 112.15%
+    )`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover, cover",
+          backgroundPosition: "right, center",
+          width: "100vw",
+          height: "279px",
+          marginBottom: "27px",
+          mixBlendMode: "normal",
+          borderRadius: "0px 0px 0px 77px",
+        }}
+      >
+        <div className="pt-8 text-white">
+          <div className="flex items-center p-2">
+            <Image
+              src={img}
+              alt={user?.name as string}
+              width={50}
+              height={50}
+              className="w-12 h-12 rounded-full object-cover"
+              onError={() => setHasError(true)}
+            />
+            <h2 className="p-1 font-bold text-xl">
+              Olá, <br /> {user?.name}
+            </h2>
+          </div>
 
-        {/* {img ? (
-          <Image src={img as string} alt="Avatar" width={50} height={50} />
-        ) : (
-          <Image
-            src="https://cdn.quasar.dev/img/avatar.png"
-            alt="Avatar"
-            width={50}
-            height={50}
-          />
-        )} */}
+          <div className="block text-left items-center text-white p-2 ">
+            <h2 className="">
+              Não sabe aonde ir? Veja aqui quais festas estão rolando!
+            </h2>
+          </div>
+        </div>
       </div>
 
-      <div className="text-left block p-4 ">
-        <h2 className="">
-          Não sabe aonde ir? Veja aqui quais festas estão rolando!
-        </h2>
-      </div>
       {/* section */}
       <div className="container mx-auto my-8 text-center lg:text-left">
         <div className="flex row justify-start q-ml-lg ml-6">
