@@ -1,6 +1,6 @@
 "use client";
 import Loading from "@/app/components/Loading";
-import { AuthContext, signOut } from "@/app/contexts/AuthContext";
+import { AuthContext } from "@/app/contexts/AuthContext";
 // components/Profile.js
 
 import Image from "next/image";
@@ -18,6 +18,7 @@ const Profile = () => {
   const [birthdate, setBirthdate] = useState("19/08/1999");
   const [gender, setGender] = useState("Lorem ipsum");
   const Auth = useContext(AuthContext);
+  const { signOut } = useContext(AuthContext);
   const user = Auth.user;
   const [loading, setLoading] = useState(true);
   const [url, setUrl] = useState("");

@@ -14,6 +14,7 @@ import EventCard from "./components/Events";
 import Loading from "./components/Loading";
 import whatshot from "../../public/assets/whatshot.svg";
 import { AuthContext, UserProps } from "@/app/contexts/AuthContext";
+import UserAvatar from "./components/Avatar";
 
 export type EventItem = {
   id: string;
@@ -26,6 +27,12 @@ export type EventItem = {
   created_at: string;
   updated_at: string;
   hostId: string;
+};
+
+type User = {
+  id: string;
+  name: string;
+  photo: string;
 };
 
 interface EventResponse {
@@ -42,14 +49,13 @@ const Home = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
   const { user } = useContext(AuthContext);
-  const [img, setImg] = useState<string>("");
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     async function loadEvents() {
       try {
-        setImg(user?.photo as string);
         const response = await getEvents();
         setLoading(false);
         return setEvents(response);
@@ -75,7 +81,7 @@ const Home = () => {
   //   setLoading(false);
   // };
 
-  if (loading && img) {
+  if (loading) {
     return <Loading />;
   }
 
@@ -100,14 +106,7 @@ const Home = () => {
       >
         <div className="pt-8 text-white">
           <div className="flex items-center p-2">
-            <Image
-              src={img}
-              alt={user?.name as string}
-              width={50}
-              height={50}
-              className="w-12 h-12 rounded-full object-cover"
-              onError={() => setHasError(true)}
-            />
+            <UserAvatar photo={user?.photo} name={user?.name || "Avatar"} />
             <h2 className="p-1 font-bold text-xl">
               Olá, <br /> {user?.name}
             </h2>

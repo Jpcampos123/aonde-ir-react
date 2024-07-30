@@ -1,12 +1,14 @@
 "use client";
 import { AuthContext } from "@/app/contexts/AuthContext";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { FaRegSmileWink } from "react-icons/fa";
 import { IoMdHome, IoMdSearch } from "react-icons/io";
 
 const Navigation = () => {
   const { user } = useContext(AuthContext);
+
+  useEffect(() => {}, [user]);
 
   if (!user) return;
 

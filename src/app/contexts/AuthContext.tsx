@@ -45,14 +45,6 @@ export const AuthContext = createContext<AuthContextData>(
   {} as AuthContextData
 );
 
-export function signOut() {
-  try {
-    destroyCookie(undefined, "@nextauth.token");
-  } catch {
-    console.log("Erro ao deslogar");
-  }
-}
-
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserProps | undefined>(undefined);
   const isAuthenticated = !!user;
@@ -81,6 +73,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
         });
     }
   }, []);
+
+  async function signOut() {
+    try {
+      destroyCookie(undefined, "@nextauth.token");
+      setUser(undefined);
+    } catch {
+      console.log("Erro ao deslogar");
+    }
+  }
 
   // para logar com usuarios testes use '/teste' para usuarios efetivos use '/session'
   async function signIn({ email, password }: SignInProps) {
