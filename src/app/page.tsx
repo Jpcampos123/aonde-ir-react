@@ -14,7 +14,6 @@ import EventCard from "./components/Events";
 import Loading from "./components/Loading";
 import whatshot from "../../public/assets/whatshot.svg";
 import { AuthContext, UserProps } from "@/app/contexts/AuthContext";
-import UserAvatar from "./components/Avatar";
 
 export type EventItem = {
   id: string;
@@ -49,6 +48,7 @@ const Home = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
   const { user } = useContext(AuthContext);
+  const src = user?.photo;
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -106,7 +106,23 @@ const Home = () => {
       >
         <div className="pt-8 text-white">
           <div className="flex items-center p-2">
-            <UserAvatar photo={user?.photo} name={user?.name || "Avatar"} />
+            {user?.photo ? (
+              <Image
+                src={user.photo}
+                alt={user.name}
+                className="w-12 h-12 rounded-full object-cover"
+                width={50}
+                height={50}
+              />
+            ) : (
+              <Image
+                src="https://cdn.quasar.dev/img/avatar.png"
+                alt="Avatar"
+                width={50}
+                height={50}
+              />
+            )}
+
             <h2 className="p-1 font-bold text-xl">
               Olá, <br /> {user?.name}
             </h2>

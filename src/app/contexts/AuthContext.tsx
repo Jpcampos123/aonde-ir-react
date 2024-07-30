@@ -33,8 +33,9 @@ type SignUpProps = {
 type AuthProviderProps = {
   children: ReactNode;
 };
+
 export type AuthContextData = {
-  user: UserProps | undefined;
+  user: UserProps | undefined; // Aqui o tipo de user é opcional
   isAuthenticated: boolean;
   signIn: (credentials: SignInProps) => Promise<void>;
   signUp: (credentials: SignUpProps) => Promise<void>;
