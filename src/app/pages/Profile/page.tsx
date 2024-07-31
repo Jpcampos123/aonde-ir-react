@@ -90,12 +90,8 @@ const Profile = () => {
                   {user?.role === 1 ? "Convidado" : "Administrador"}
                 </p>
               </div>
-              <div>
-                <CiLogout
-                  className="text-red-500 cursor-pointer"
-                  size={24}
-                  onClick={handleGetOut}
-                />
+              <div className="" onClick={handleGetOut}>
+                <CiLogout className="text-red-500 cursor-pointer" size={24} />
               </div>
             </div>
           </div>

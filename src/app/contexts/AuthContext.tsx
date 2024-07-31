@@ -28,6 +28,7 @@ type SignUpProps = {
   name: string;
   email: string;
   password: string;
+  phone: string;
 };
 
 type AuthProviderProps = {
@@ -121,12 +122,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  async function signUp({ name, email, password }: SignUpProps) {
+  async function signUp({ name, email, password, phone }: SignUpProps) {
     try {
-      const response = await axiosInstance.post("/users", {
+      const response = await axiosInstance.post("/auth", {
         name,
         email,
         password,
+        phone,
+        photo:
+          "https://upload.wikimedia.org/wikipedia/pt/a/ac/CRVascodaGama.png",
       });
 
       toast.success("Conta criada com sucesso");

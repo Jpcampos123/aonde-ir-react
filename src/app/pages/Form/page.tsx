@@ -4,18 +4,18 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import arrowLeft from "../../../../public/assets/arrowLeft.png";
 import { AuthContext } from "../../contexts/AuthContext";
-import { canSSRGuest } from "../../utils/canSSRGuest";
+import Loading from "@/app/components/Loading";
+
 const FormPage = () => {
   const [loading, setLoading] = useState(false);
   const [register, setRegister] = useState(false);
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPwd, setIsPwd] = useState(true);
   const router = useRouter();
   const { signIn, signUp } = useContext(AuthContext);
-
-  
 
   const handleBack = () => {
     setLoading(true);
@@ -40,7 +40,9 @@ const FormPage = () => {
     setLoading(true);
 
     try {
-      await signUp({ name, email, password });
+      await signUp({ name, email, password, phone });
+      setLoading(true);
+      setRegister(false);
     } catch (error) {
       console.error("Erro ao registrar:", error);
     }
@@ -56,6 +58,8 @@ const FormPage = () => {
       handleLogin();
     }
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div className=" ">
@@ -88,6 +92,18 @@ const FormPage = () => {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+              </div>
+            )}
+
+            {register && (
+              <div className="mb-4 ">
+                <label className="block text-left mb-1">Phone</label>
+                <input
+                  type="text"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
                 />
               </div>
