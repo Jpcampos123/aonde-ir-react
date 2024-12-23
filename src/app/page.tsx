@@ -139,7 +139,7 @@ const Home = () => {
       {/* section */}
       <div className="container mx-auto my-8 text-center lg:text-left">
         <div className="flex row justify-start q-ml-lg ml-6">
-          <h1 className="text-3xl font-bold ">Hoje! </h1>
+          <h1 className="text-3xl font-bold ">Hoje!! </h1>
           <Image
             className="object-contain"
             src={whatshot}

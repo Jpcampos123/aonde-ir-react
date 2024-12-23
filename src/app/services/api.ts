@@ -3,13 +3,13 @@ import axios from 'axios';
 import { parseCookies } from 'nookies';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://aonde-ir-back.vercel.app/', // Defina sua URL base da API
+  baseURL: process.env.API_BASE_URL || 'http://localhost:4000', // Usa a variável de ambiente ou localhost como fallback
   headers: {
     'Content-Type': 'application/json',
-    Content: 'application/json',
     Accept: 'application/json',
   },
 });
+
 
 // Interceptor para incluir token de autenticação em cada requisição, se disponível
 axiosInstance.interceptors.request.use((config) => {
